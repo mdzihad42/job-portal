@@ -1,0 +1,173 @@
+{% extends 'master/base.html' %}
+{% block body %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Apply List</title>
+  <style>
+    body {
+      background: #f6f6f6;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    .table-container {
+      width: 90%;
+      margin: 50px auto;
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 4px 25px rgba(0, 0, 0, 0.08);
+      overflow-x: auto;
+      padding: 20px;
+    }
+
+    h2 {
+      text-align: center;
+      color: #e91e63;
+      margin-bottom: 25px;
+      font-size: 24px;
+      font-weight: 600;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+      font-size: 14px;
+      color: #333;
+    }
+
+    th, td {
+      padding: 12px 15px;
+      border-bottom: 1px solid #eee;
+      vertical-align: middle;
+    }
+
+    th {
+      background-color: #e91e63;
+      color: #fff;
+      font-weight: 600;
+      text-transform: capitalize;
+    }
+
+    tr:hover {
+      background-color: #fdf1f5;
+    }
+
+    a {
+      color: #e91e63;
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    .action-links a {
+      margin-right: 8px;
+      padding: 6px 10px;
+      border-radius: 5px;
+      font-size: 13px;
+      color: white;
+    }
+
+    .edit-btn {
+      background: #4caf50;
+    }
+
+    .delete-btn {
+      background: #f44336;
+    }
+
+    .shortlist-btn {
+      background: #2196f3;
+    }
+
+    .reject-btn {
+      background: #9c27b0;
+    }
+
+    .status {
+      font-weight: 500;
+      padding: 4px 8px;
+      border-radius: 5px;
+      display: inline-block;
+    }
+
+    .status.Pending {
+      color: #ff9800;
+      background: #fff3e0;
+    }
+
+    .status.Shortlisted {
+      color: #4caf50;
+      background: #e8f5e9;
+    }
+
+    .status.Rejected {
+      color: #f44336;
+      background: #ffebee;
+    }
+  </style>
+</head>
+<body>
+  <div class="table-container">
+    <h2>Apply List</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Applicant</th>
+          <th>Job Title</th>
+          <th>CV</th>
+          <th>Phone Number</th>
+          <th>Status</th>
+          {% if request.user.roles == 'Job_Seeker' %}
+          <th>Action</th>
+          {% endif %}
+          {% if request.user.roles == 'Employee' %}
+          <th>Change Status</th>
+          {% endif %}
+        </tr>
+      </thead>
+      <tbody>
+        {% for i in apply %}
+        <tr>
+          <td>{{ i.seeker.full_name }}</td>
+          <td>{{ i.job.Job_title }}</td>
+          <td>
+            {% if i.cv %}
+              <a href="{{ i.cv.url }}" target="_blank">View CV</a>
+            {% else %}
+              <span style="color:#999;">No CV</span>
+            {% endif %}
+          </td>
+          <td>{{ i.phone_number }}</td>
+          <td><span class="status {{ i.status }}">{{ i.status }}</span></td>
+
+          {% if request.user.roles == 'Job_Seeker' %}
+          <td class="action-links">
+            <a href="{% url 'applyListDlt' i.id %}" class="delete-btn">Delete</a>
+          </td>
+          {% endif %}
+          {% if request.user.roles == 'Employee' %}
+          <td class="action-links">
+            <a href="{% url 'Shortlisted' i.id %}" class="shortlist-btn">Shortlist</a>
+            <a href="{% url 'Rejected' i.id %}" class="reject-btn">Reject</a>
+          </td>
+          {% endif %}
+        </tr>
+        {% empty %}
+        <tr>
+          <td colspan="7" style="text-align:center; color:#999; padding:20px;">
+            No applications found.
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</body>
+</html>
+{% endblock body %}

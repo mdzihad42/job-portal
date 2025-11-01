@@ -1,0 +1,283 @@
+{% extends 'master/base.html' %}
+{% block body %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Job Posts</title>
+  <style>
+    body {
+      font-family: "Poppins", sans-serif;
+      background-color: #f7f8fc;
+      margin: 0;
+      color: #333;
+    }
+
+    .page-container {
+      width: 95%;
+      max-width: 1200px;
+      margin: 60px auto;
+    }
+
+    /* ===== Header ===== */
+    .header-section {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    .header-section h2 {
+      font-size: 32px;
+      color: #222;
+      margin-bottom: 8px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+    }
+
+    .header-section p {
+      color: #777;
+      font-size: 15px;
+      margin-top: 5px;
+    }
+
+    /* ===== Search Box ===== */
+    .search-container {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .search-box {
+      width: 55%;
+      padding: 12px 18px;
+      border: 1px solid #ddd;
+      border-radius: 8px 0 0 8px;
+      font-size: 15px;
+      outline: none;
+      transition: border 0.3s;
+    }
+
+    .search-box:focus {
+      border-color: #e91e63;
+    }
+
+    .search-btn {
+      padding: 12px 25px;
+      border: none;
+      background-color: #e91e63;
+      color: white;
+      font-weight: 500;
+      border-radius: 0 8px 8px 0;
+      cursor: pointer;
+      font-size: 15px;
+      transition: background 0.3s;
+    }
+
+    .search-btn:hover {
+      background-color: #d81b60;
+    }
+
+    /* ===== Table Wrapper ===== */
+    .table-container {
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 5px 25px rgba(0,0,0,0.07);
+      overflow-x: auto;
+      padding: 10px;
+      animation: fadeIn 0.5s ease;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px;
+      min-width: 900px;
+    }
+
+    th, td {
+      padding: 14px 16px;
+      text-align: left;
+      border-bottom: 1px solid #f0f0f0;
+    }
+
+    th {
+      background-color: #e91e63;
+      color: #fff;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+      font-size: 13px;
+    }
+
+    tr:hover {
+      background-color: #fff5f8;
+    }
+
+    td {
+      vertical-align: top;
+      color: #444;
+    }
+
+    /* ===== Buttons ===== */
+    .btn {
+      text-decoration: none;
+      padding: 7px 14px;
+      border-radius: 6px;
+      font-size: 13px;
+      font-weight: 500;
+      transition: all 0.3s ease;
+      display: inline-block;
+      margin-right: 5px;
+      border: none;
+    }
+
+    .btn-edit {
+      background-color: #2196f3;
+      color: #fff;
+    }
+    .btn-edit:hover {
+      background-color: #0b7dda;
+    }
+
+    .btn-delete {
+      background-color: #f44336;
+      color: #fff;
+    }
+    .btn-delete:hover {
+      background-color: #d32f2f;
+    }
+
+    .btn-apply {
+      background-color: #001aff;
+      color: #fff;
+    }
+    .btn-apply:hover {
+      background-color: #000dcf;
+    }
+
+    .see-more {
+      text-decoration: none;
+      color: #e91e63;
+      font-weight: 500;
+      transition: color 0.3s;
+    }
+    .see-more:hover {
+      color: #d81b60;
+    }
+
+    /* ===== Empty Row ===== */
+    .empty-row td {
+      text-align: center;
+      padding: 25px;
+      color: #888;
+      font-size: 15px;
+    }
+
+    /* ===== Animation ===== */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ===== Responsive ===== */
+    @media (max-width: 768px) {
+      .header-section h2 {
+        font-size: 24px;
+      }
+      .search-box {
+        width: 80%;
+        border-radius: 8px;
+        margin-bottom: 10px;
+      }
+      .search-btn {
+        width: 80%;
+        border-radius: 8px;
+      }
+      th, td {
+        padding: 10px;
+        font-size: 13px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<div class="page-container">
+
+  <!-- 🔍 Search -->
+  <div class="search-container">
+    <form method="GET" action="">
+      {% csrf_token %}
+      <input type="text" name="q" value="{{ query|default:'' }}" placeholder="Search by job title, skills, company, or location" class="search-box">
+      <button type="submit" class="search-btn">Search</button>
+    </form>
+  </div>
+
+  <!-- 🏢 Header -->
+  <div class="header-section">
+    <h2>Available Job Posts</h2>
+    <p>Explore the latest opportunities and apply to your dream job</p>
+  </div>
+
+  <!-- 📋 Job Table -->
+  <div class="table-container">
+    <table>
+      <thead>
+        <tr>
+          <th>Posted By</th>
+          <th>Job Title</th>
+          <th>Company</th>
+          <th>Location</th>
+          <th>Description</th>
+          <th>Skills Required</th>
+          <th>Salary</th>
+          <th>Deadline</th>
+          {% if request.user.roles == 'Employee' %}
+          <th>Action</th>
+          {% endif %}
+          {% if request.user.roles == 'Job_Seeker' %}
+          <th>Apply</th>
+          {% endif %}
+          <th>Details</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        {% for i in jobs %}
+        <tr>
+          <td>{{ i.posted_by.employee.full_name }}</td>
+          <td>{{ i.Job_title }}</td>
+          <td>{{ i.company_name }}</td>
+          <td>{{ i.location }}</td>
+          <td>{{ i.description|truncatechars:80 }}</td>
+          <td>{{ i.skills_required }}</td>
+          <td>{{ i.salary|default:"Not disclosed" }}</td>
+          <td>{{ i.application_deadline }}</td>
+
+          {% if request.user.roles == 'Employee' %}
+          <td>
+            <a href="{% url 'jobEdit' i.id %}" class="btn btn-edit">Edit</a>
+            <a href="{% url 'jobDlt' i.id %}" class="btn btn-delete">Delete</a>
+          </td>
+          {% endif %}
+
+          {% if request.user.roles == 'Job_Seeker' %}
+          <td>
+            <a href="{% url 'applyAdd' i.id %}" class="btn btn-apply">Apply</a>
+          </td>
+          {% endif %}
+
+          <td><a href="{% url 'notePage' i.id %}" class="see-more">See More →</a></td>
+        </tr>
+        {% empty %}
+        <tr class="empty-row">
+          <td colspan="10">No job posts available right now.</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+
+</body>
+</html>
+{% endblock body %}

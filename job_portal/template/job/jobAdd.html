@@ -1,0 +1,137 @@
+{% extends 'master/base.html' %}
+{% block body %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Add New Job</title>
+  <style>
+    body {
+      font-family: "Poppins", sans-serif;
+      background-color: #f4f6fc;
+      margin: 0;
+      padding: 0;
+    }
+
+    .job-form-container {
+      max-width: 550px;
+      background-color: #fff;
+      margin: 60px auto;
+      padding: 40px 50px;
+      border-radius: 12px;
+      box-shadow: 0 4px 25px rgba(0, 0, 0, 0.1);
+    }
+
+    h2 {
+      text-align: center;
+      color: #e91e63;
+      font-size: 26px;
+      font-weight: 600;
+      margin-bottom: 25px;
+      letter-spacing: 0.5px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 500;
+      color: #333;
+      font-size: 15px;
+    }
+
+    input, textarea, select {
+      width: 100%;
+      padding: 12px 14px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 14px;
+      color: #333;
+      margin-bottom: 18px;
+      background-color: #fdfdfd;
+      transition: all 0.3s ease;
+    }
+
+    input:focus, textarea:focus, select:focus {
+      border-color: #e91e63;
+      box-shadow: 0 0 4px rgba(233, 30, 99, 0.3);
+      outline: none;
+      background-color: #fff;
+    }
+
+    textarea {
+      resize: vertical;
+      min-height: 100px;
+    }
+
+    button {
+      width: 100%;
+      background-color: #e91e63;
+      color: #fff;
+      border: none;
+      padding: 12px;
+      font-size: 16px;
+      font-weight: 600;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background-color 0.3s ease, transform 0.1s ease;
+    }
+
+    button:hover {
+      background-color: #d81b60;
+      transform: translateY(-1px);
+    }
+
+    .note {
+      text-align: center;
+      font-size: 13px;
+      color: #777;
+      margin-top: 12px;
+    }
+
+    @media (max-width: 600px) {
+      .job-form-container {
+        width: 90%;
+        padding: 25px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="job-form-container">
+    <h2>Post a New Job</h2>
+
+    <form action="" method="POST">
+      {% csrf_token %}
+
+      <label for="Job_title">Job Title</label>
+      <input type="text" id="Job_title" name="Job_title" placeholder="e.g. Frontend Developer" required>
+
+      <label for="company_name">Company Name</label>
+      <input type="text" id="company_name" name="company_name" placeholder="e.g. Tech Innovators Ltd" required>
+
+      <label for="location">Location</label>
+      <input type="text" id="location" name="location" placeholder="e.g. Dhaka, Bangladesh" required>
+
+      <label for="description">Job Description</label>
+      <textarea id="description" name="description" placeholder="Write a short job description..." required></textarea>
+
+      <label for="skills_required">Skills Required</label>
+      <input type="text" id="skills_required" name="skills_required" placeholder="e.g. HTML, CSS, React.js, Node.js" required>
+
+      <label for="salary">Salary</label>
+      <input type="text" id="salary" name="salary" placeholder="e.g. 25000 - 40000 BDT" required>
+
+      <label for="application_deadline">Application Deadline</label>
+      <input type="date" id="application_deadline" name="application_deadline" required>
+
+      <button type="submit">Add Job</button>
+    </form>
+
+    <p class="note">Make sure all details are correct before submitting.</p>
+  </div>
+
+</body>
+</html>
+{% endblock body %}

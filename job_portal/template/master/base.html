@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Job Portal | Home</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    /* ===== Base ===== */
+    * {
+      box-sizing: border-box;
+      transition: all 0.3s ease;
+    }
+    body {
+      margin: 0;
+      font-family: "Poppins", sans-serif;
+      background-color: #f9f9fb;
+      color: #333;
+    }
+    a { text-decoration: none; }
+
+    /* ===== Navbar ===== */
+    .navbar {
+      background-color: #ffffff;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+      padding: 12px 30px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .navbar-left {
+      display: flex;
+      align-items: center;
+      gap: 30px;
+    }
+
+    .logo {
+      font-size: 20px;
+      font-weight: 600;
+      color: #e91e63;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: #333;
+      font-weight: 500;
+      margin-right: 20px;
+      transition: color 0.3s;
+    }
+
+    .nav-links a:hover {
+      color: #e91e63;
+    }
+
+    .navbar-right {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .btn {
+      text-decoration: none;
+      padding: 8px 14px;
+      border-radius: 6px;
+      font-weight: 500;
+      transition: all 0.3s ease;
+    }
+
+    .btn-change {
+      background-color: #f8f9fb;
+      color: #333;
+      border: 1px solid #ddd;
+    }
+
+    .btn-change:hover {
+      background-color: #f1f1f1;
+    }
+
+    .btn-login, .btn-register {
+      background-color: #e91e63;
+      color: #fff;
+      border: none;
+    }
+
+    .btn-login:hover, .btn-register:hover {
+      background-color: #d81b60;
+    }
+
+    .profile {
+      display: flex;
+      align-items: center;
+      background-color: #fff0f5;
+      color: #e91e63;
+      font-weight: 600;
+      padding: 8px 12px;
+      border-radius: 20px;
+      border: 1px solid #f3c0d1;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .profile:hover {
+      background-color: #ffe4ec;
+    }
+
+    /* ===== Hero Section ===== */
+    .hero {
+      background: linear-gradient(135deg, #fff0f6, #eaf1ff);
+      text-align: center;
+      padding: 110px 20px 100px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero h1 {
+      font-size: 46px;
+      color: #222;
+      margin-bottom: 15px;
+      font-weight: 700;
+      position: relative;
+    }
+
+    .hero p {
+      color: #555;
+      font-size: 18px;
+      max-width: 650px;
+      margin: 0 auto 35px;
+      line-height: 1.6;
+    }
+
+    .search-area {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 0;
+    }
+
+    .search-box {
+      width: 50%;
+      padding: 14px 18px;
+      border: 1px solid #ddd;
+      border-radius: 8px 0 0 8px;
+      font-size: 15px;
+      outline: none;
+    }
+
+    .search-box:focus {
+      border-color: #e91e63;
+    }
+
+    .search-btn {
+      padding: 14px 25px;
+      border: none;
+      background-color: #e91e63;
+      color: white;
+      font-size: 15px;
+      border-radius: 0 8px 8px 0;
+      cursor: pointer;
+      font-weight: 500;
+    }
+
+    .search-btn:hover {
+      background-color: #d81b60;
+    }
+
+    /* ===== Category Section ===== */
+    .categories {
+      width: 90%;
+      margin: 80px auto;
+      text-align: center;
+    }
+
+    .categories h2 {
+      font-size: 30px;
+      color: #222;
+      margin-bottom: 40px;
+      font-weight: 600;
+      position: relative;
+    }
+
+    .category-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 30px;
+    }
+
+    .category-card {
+      background: #fff;
+      border-radius: 12px;
+      padding: 40px 25px;
+      box-shadow: 0 5px 25px rgba(0,0,0,0.05);
+      cursor: pointer;
+      transform: translateY(0);
+      transition: 0.4s;
+    }
+
+    .category-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 10px 35px rgba(0,0,0,0.1);
+    }
+
+    .category-card h3 {
+      color: #e91e63;
+      margin-bottom: 10px;
+      font-size: 20px;
+      font-weight: 600;
+    }
+
+    .category-card p {
+      color: #666;
+      font-size: 15px;
+      line-height: 1.6;
+    }
+
+    /* ===== Job Section ===== */
+    .job-section {
+      width: 90%;
+      margin: 90px auto;
+      text-align: center;
+    }
+
+    .job-section h2 {
+      font-size: 30px;
+      color: #222;
+      margin-bottom: 12px;
+      font-weight: 600;
+    }
+
+    .job-section p {
+      color: #777;
+      margin-bottom: 40px;
+    }
+
+    .job-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+      gap: 25px;
+    }
+
+    .job-card {
+      background: #fff;
+      border-radius: 14px;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+      padding: 25px;
+      text-align: left;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .job-card::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 5px;
+      height: 100%;
+      background: linear-gradient(180deg, #e91e63, #001aff);
+    }
+
+    .job-title {
+      font-size: 20px;
+      font-weight: 600;
+      color: #e91e63;
+      margin-bottom: 6px;
+    }
+
+    .company {
+      color: #555;
+      font-size: 15px;
+      margin-bottom: 10px;
+    }
+
+    .details {
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      color: #777;
+      font-size: 14px;
+      margin-bottom: 12px;
+    }
+
+    .apply-btn {
+      background: #001aff;
+      color: #fff;
+      padding: 10px 18px;
+      border-radius: 6px;
+      text-decoration: none;
+      font-weight: 500;
+      display: inline-block;
+    }
+
+    .apply-btn:hover {
+      background: #000dcf;
+    }
+
+    /* ===== Footer ===== */
+    footer {
+      background-color: #fff;
+      text-align: center;
+      padding: 35px 15px;
+      border-top: 1px solid #eee;
+      color: #777;
+      font-size: 15px;
+      margin-top: 60px;
+    }
+
+    footer strong {
+      color: #e91e63;
+    }
+
+    footer::before {
+      content: "";
+      display: block;
+      height: 4px;
+      width: 100%;
+      background: linear-gradient(90deg, #e91e63, #001aff);
+      margin-bottom: 25px;
+    }
+
+    /* ===== Responsive ===== */
+    @media (max-width: 768px) {
+      .search-area {
+        flex-direction: column;
+      }
+      .search-box {
+        width: 85%;
+        border-radius: 8px;
+        margin-bottom: 10px;
+      }
+      .search-btn {
+        border-radius: 8px;
+        width: 85%;
+      }
+      .hero {
+        padding: 80px 20px;
+      }
+      .hero h1 { font-size: 36px; }
+    }
+  </style>
+</head>
+<body>
+
+  {% include 'master/nav.html' %}
+
+{% block body %}
+
+  <!-- Hero -->
+  <section class="hero">
+    <h1>Find Your Dream Job 💼</h1>
+    <p>Discover thousands of career opportunities and land your perfect role with just one click.</p>
+    <form method="GET" action="">
+      {% csrf_token %}
+      <div class="search-area">
+        <input type="text" name="q" value="{{ query|default:'' }}" placeholder="Search by job title, skills, company, or location" class="search-box">
+        <button type="submit" class="search-btn">Search</button>
+      </div>
+    </form>
+  </section>
+
+  <!-- Categories -->
+  <section class="categories">
+    <h2>Explore Top Categories</h2>
+    <div class="category-grid">
+      <div class="category-card">
+        <h3>💻 IT & Software</h3>
+        <p>Web Developer, App Developer, UI/UX Designer, QA Engineer</p>
+      </div>
+      <div class="category-card">
+        <h3>📈 Marketing</h3>
+        <p>Digital Marketer, SEO Specialist, Social Media Manager</p>
+      </div>
+      <div class="category-card">
+        <h3>🏢 Management</h3>
+        <p>HR Executive, Project Manager, Operations Lead</p>
+      </div>
+      <div class="category-card">
+        <h3>🎨 Creative</h3>
+        <p>Content Writer, Video Editor, Graphic Designer</p>
+      </div>
+      <div class="category-card">
+        <h3>🧑‍🏫 Education</h3>
+        <p>Teacher, Trainer, Academic Coordinator</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Recent Jobs -->
+  <section class="job-section">
+    <h2>🔥 Recent Jobs</h2>
+    <p>Check out the latest openings that match your skills and interests.</p>
+
+    <div class="job-grid">
+      {% for i in jobs %}
+      <div class="job-card">
+        <div class="job-title">{{ i.Job_title }}</div>
+        <div class="company">{{ i.company_name }}</div>
+        <div class="details">
+          <span>📍 {{ i.location }}</span>
+          <span>💰 {{ i.salary|default:"Not disclosed" }}</span>
+        </div>
+        <div><strong>Skills:</strong> {{ i.skills_required }}</div>
+        <div><strong>Deadline:</strong> {{ i.application_deadline }}</div>
+        
+        
+        {% if request.user.roles == 'Job_Seeker' %}
+          <a href="{% url 'applyAdd' i.id %}" class="apply-btn">Apply Now</a>
+        {% endif %}
+          
+      </div>
+      {% empty %}
+      <p>No jobs found.</p>
+      {% endfor %}
+    </div>
+  </section>
+
+  <footer>
+    &copy; {{ now|date:"Y" }} Job Portal | Designed by <strong>MD ZIHAD</strong>
+  </footer>
+
+{% endblock body %}
+</body>
+</html>

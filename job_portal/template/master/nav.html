@@ -1,0 +1,31 @@
+<!-- Navbar -->
+  <div class="navbar">
+    <div class="navbar-left">
+      <div class="logo">Job Portal</div>
+      <div class="nav-links">
+        {% if request.user.roles %}
+        <a href="{% url 'homePage' %}">Home</a>
+        {% else %}
+        <a href="{% url 'homePage2' %}">Home</a>
+        {% endif %}
+
+        {% if request.user.roles == 'Employee' %}
+        <a href="{% url 'jobAddPage' %}">Add Post</a>
+        {% endif %}
+
+        <a href="{% url 'jobPostPage' %}">Job List</a>
+        <a href="{% url 'applyList' %}">Apply List</a>
+      </div>
+    </div>
+
+    <div class="navbar-right">
+      {% if request.user.roles %}
+      <a href="{% url 'changePass' %}" class="btn btn-change">Change Password</a>
+      <a href="{% url 'logoutPage' %}" class="btn btn-login">Logout</a>
+      <div class="profile">{{ request.user }} - {{ request.user.roles }}</div>
+      {% else %}
+      <a href="{% url 'loginPage' %}" class="btn btn-login">Login</a>
+      <a href="{% url 'registerPage' %}" class="btn btn-register">Register</a>
+      {% endif %}
+    </div>
+  </div>

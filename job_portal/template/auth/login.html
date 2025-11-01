@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Register Page</title>
+  <style>
+    body {
+      font-family: "Poppins", sans-serif;
+      background: linear-gradient(135deg, #fce4ec, #f8bbd0);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .register-container {
+      background-color: #fff;
+      padding: 30px 35px;
+      border-radius: 10px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+      width: 350px;
+    }
+
+    h2 {
+      text-align: center;
+      color: #e91e63;
+      margin-bottom: 20px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 6px;
+      font-weight: 500;
+      color: #333;
+    }
+
+    input, select {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      outline: none;
+      font-size: 14px;
+      margin-bottom: 15px;
+      transition: border-color 0.2s;
+    }
+
+    input:focus, select:focus {
+      border-color: #e91e63;
+    }
+
+    button {
+      width: 100%;
+      background-color: #e91e63;
+      color: white;
+      border: none;
+      padding: 10px;
+      font-size: 16px;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    button:hover {
+      background-color: #d81b60;
+    }
+
+    .note {
+      text-align: center;
+      font-size: 13px;
+      color: #777;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="register-container">
+    <h2>Login</h2>
+    <form action="#" method="POST">
+      {% csrf_token %}
+      <label for="username">Username</label>
+      <input type="text" id="username" name="username" placeholder="Enter username" required>
+      <label for="password">Password</label>
+      <input type="password" id="password" name="password" placeholder="Enter password" required>
+
+      <button type="submit">Login</button>
+
+      <p class="note">don't have an account? <a href="{% url 'registerPage' %}">register</a></p>
+    </form>
+  </div>
+
+</body>
+</html>

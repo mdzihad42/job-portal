@@ -1,0 +1,109 @@
+{% extends 'master/base.html' %}
+
+{% block body %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Register Page</title>
+  <style>
+
+    .register-container {
+      background-color: #fff;
+      margin: 80px auto;
+      padding: 30px 35px;
+      border-radius: 10px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+      width: 350px;
+    }
+
+    h2 {
+      text-align: center;
+      color: #e91e63;
+      margin-bottom: 20px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 6px;
+      font-weight: 500;
+      color: #333;
+    }
+
+    input, select {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      outline: none;
+      font-size: 14px;
+      margin-bottom: 15px;
+      transition: border-color 0.2s;
+    }
+
+    input:focus, select:focus {
+      border-color: #e91e63;
+    }
+
+    button {
+      width: 100%;
+      background-color: #e91e63;
+      color: white;
+      border: none;
+      padding: 10px;
+      font-size: 16px;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    button:hover {
+      background-color: #d81b60;
+    }
+
+    .note {
+      text-align: center;
+      font-size: 13px;
+      color: #777;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="register-container">
+    <h2>Register</h2>
+    <form action="#" method="POST">
+      {% csrf_token %}
+        
+      <label for="fullname">Full Name</label>
+      <input type="text" id="fullname" name="fullname" placeholder="Enter your full name" required>
+
+      <label for="username">Username</label>
+      <input type="text" id="username" name="username" placeholder="Enter username" required>
+
+      <label for="role">Role</label>
+      <select id="role" name="role" required>
+        <option value="">Select Role</option>
+        <option value="Employee">Employee</option>
+        <option value="Job_Seeker">Job_Seeker</option>
+      </select>
+
+      <label for="password">Password</label>
+      <input type="password" id="password" name="password" placeholder="Enter password" required>
+
+      <label for="confirm_password">Confirm Password</label>
+      <input type="password" id="confirm_password" name="confirm_password" placeholder="Confirm password" required>
+
+      <button type="submit">Register</button>
+
+      <p class="note">Already have an account? <a href="{% url 'loginPage' %}">Login</a></p>
+    </form>
+  </div>
+
+</body>
+</html>
+
+{% endblock body %}
+    

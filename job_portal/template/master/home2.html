@@ -1,0 +1,71 @@
+{% extends 'master/base.html' %}
+{% block body %}
+
+  <!-- Hero -->
+  <section class="hero">
+    <h1>Find Your Dream Job 💼</h1>
+    <p>Discover thousands of career opportunities and land your perfect role with just one click.</p>
+    <form method="GET" action="">
+      {% csrf_token %}
+      <div class="search-area">
+        <input type="text" name="q" value="{{ query|default:'' }}" placeholder="Search by job title, skills, company, or location" class="search-box">
+        <button type="submit" class="search-btn">Search</button>
+      </div>
+    </form>
+  </section>
+
+  <!-- Categories -->
+  <section class="categories">
+    <h2>Explore Top Categories</h2>
+    <div class="category-grid">
+      <div class="category-card">
+        <h3>💻 IT & Software</h3>
+        <p>Web Developer, App Developer, UI/UX Designer, QA Engineer</p>
+      </div>
+      <div class="category-card">
+        <h3>📈 Marketing</h3>
+        <p>Digital Marketer, SEO Specialist, Social Media Manager</p>
+      </div>
+      <div class="category-card">
+        <h3>🏢 Management</h3>
+        <p>HR Executive, Project Manager, Operations Lead</p>
+      </div>
+      <div class="category-card">
+        <h3>🎨 Creative</h3>
+        <p>Content Writer, Video Editor, Graphic Designer</p>
+      </div>
+      <div class="category-card">
+        <h3>🧑‍🏫 Education</h3>
+        <p>Teacher, Trainer, Academic Coordinator</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Recent Jobs -->
+  <section class="job-section">
+    <h2>🔥 Recent Jobs</h2>
+    <p>Check out the latest openings that match your skills and interests.</p>
+
+    <div class="job-grid">
+      {% for i in jobs %}
+      <div class="job-card">
+        <div class="job-title">{{ i.Job_title }}</div>
+        <div class="company">{{ i.company_name }}</div>
+        <div class="details">
+          <span>📍 {{ i.location }}</span>
+          <span>💰 {{ i.salary|default:"Not disclosed" }}</span>
+        </div>
+        <div><strong>Skills:</strong> {{ i.skills_required }}</div>
+        <div><strong>Deadline:</strong> {{ i.application_deadline }}</div>
+        <a href="{% url 'applyAdd' i.id %}" class="apply-btn">Apply Now</a>
+      </div>
+      {% empty %}
+      <p>No jobs found.</p>
+      {% endfor %}
+    </div>
+  </section>
+
+  <footer>
+    &copy; {{ now|date:"Y" }} Job Portal | Designed by <strong>MD ZIHAD</strong>
+  </footer>
+{% endblock body %}
